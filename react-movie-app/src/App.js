@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import { useEffect } from 'react';
 import './App.css';
+import searchIcon from './search.svg';
 
+// 71254d48
+const API_URL = 'http://www.omdbapi.com?apikey=71254d48'
 function App() {
+  const searchMovies = async (title) => {
+    try {
+      const response = await fetch(`${API_URL}&s=${title}`);
+      const data = response.json();
+      console.log(data);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  useEffect(() => { searchMovies('spiderman') }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>MovieLand</h1>
+
+      <div className='search'>
+        <input placeholder="Search for movies" value="spiderman"
+        onChange={() => {}}>  
+        </input>
+        <img src={searchIcon}
+          alt="search" onClick={() => {}}>
+          
+        </img>
+      </div>
     </div>
   );
 }
